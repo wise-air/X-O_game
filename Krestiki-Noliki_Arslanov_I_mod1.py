@@ -29,6 +29,7 @@ zone = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9}
 # Переменные со счетчиком и ходом
 count = 1
 turn = 0
+name = 'X'
 
 
 # Функция - Игровое поле
@@ -41,25 +42,22 @@ def game_zone():
     print(zone[7], '|', zone[8], "|", zone[9])
     print("_" * 10)
 
-# Функция включения объекта "О" в словарь
-def o_input_to_dict():
+# Функция включения объекта 'X' или 'O' в словарь
+def xo_input_to_dict():
     for n in zone:
+        if count % 2 == 0:
+            name = 'O'
+        else:
+            name = 'X'
         if n == int(turn):
-            zone[n] = 'O'
-            break
-
-# Функция включения объекта "Х" в словарь
-def x_input_to_dict():
-    for n in zone:
-        if n == int(turn):
-            zone[n] = 'X'
+            zone[n] = name
             break
 
 # Функция проверки объеков словаря на ввод недопустимого числа или повторяющегося числа
 def check_errors():
     global turn
     check_O_X = int(turn)
-    while check_O_X not in list(zone.values()) or check_O_X not in list(zone.values()):
+    while check_O_X not in list(zone.values()):
         turn = input('Упс, введено недопустимое число или число уже вводилось, введите другое [1-9]: ')
         check_O_X = int(turn)
         continue
@@ -99,28 +97,28 @@ while count <= 9:
     if count == 1:
         turn = input(f'Кто первый бой начинает, тот скорее побеждает. \n {player_one} выбирайте ячейку с номером [1-9]: ')
         check_errors()
-        x_input_to_dict()
+        xo_input_to_dict()
         game_zone()
         count += 1
 
     elif count == 2:
         turn = (input(f'В бою победа за тем, кто силен духом. \n Ваш ход {player_two} [1-9]: '))
         check_errors()
-        o_input_to_dict()
+        xo_input_to_dict()
         game_zone()
         count += 1
 
     elif count == 3:
         turn = input(f'"Крестики-нолики" - шахматы в младенчестве. \n Ваш ход {player_one} [1-9]: ')
         check_errors()
-        x_input_to_dict()
+        xo_input_to_dict()
         game_zone()
         count += 1
 
     elif count == 4:
         turn = input(f'Крестик без нолика - плюс. \n Ваш ход {player_two} [1-9]: ')
         check_errors()
-        o_input_to_dict()
+        xo_input_to_dict()
         check_winner()  # Проверку на победителя начинаю с четвертого хода, т.к. ранее победителя быть не может
         game_zone()
         count += 1
@@ -129,7 +127,7 @@ while count <= 9:
         turn = input(f'Не говори, что ты несешь свой крест, если ты играешь в "Крестики-нолики". \n '
                      f'Ваш ход {player_one} [1-9]: ')
         check_errors()
-        x_input_to_dict()
+        xo_input_to_dict()
         check_winner()
         game_zone()
         count += 1
@@ -137,7 +135,7 @@ while count <= 9:
     elif count == 6:
         turn = input(f'Нолик без крестика - буква О. \n Ваш ход {player_two} [1-9]: ')
         check_errors()
-        o_input_to_dict()
+        xo_input_to_dict()
         check_winner()
         game_zone()
         count += 1
@@ -145,7 +143,7 @@ while count <= 9:
     elif count == 7:
         turn = input(f'"Крестики-нолики" - вечные друзья соперники. \n Ваш ход {player_one} [1-9]: ')
         check_errors()
-        x_input_to_dict()
+        xo_input_to_dict()
         check_winner()
         game_zone()
         count += 1
@@ -153,7 +151,7 @@ while count <= 9:
     elif count == 8:
         turn = input(f'"Крестики-нолики" - наш ответ кубику Рубика. \n Ваш ход {player_two} [1-9]: ')
         check_errors()
-        o_input_to_dict()
+        xo_input_to_dict()
         check_winner()
         game_zone()
         count += 1
@@ -162,7 +160,7 @@ while count <= 9:
         turn = input(
             f'Несмотря на все разногласия, крестик и нолик - пара неразлучников. \n Ваш ход {player_one} [1-9]: ')
         check_errors()
-        x_input_to_dict()
+        xo_input_to_dict()
         check_winner()
         game_zone()
         count += 1
